@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    parameters {
+            string(name: 'branch', defaultValue: 'develop', description: 'Branch Name')
+    }
+
+    stages {
+
+        stage('Compile and Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+            post{
+                 failure{
+                        error('Build is Aborted.Please check build logs for errors')
+                 }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+         }
+
+         stage('Sonar qube analysis') {
+             steps {
+                 //sonar qube analysis on sonar server
+             }
+          }
+
+          stage('Snyk analysis') {
+               steps {
+                   //Snyk analysis on server
+               }
+            }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t customer-api .'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh 'docker push <IMAGE>'
+            }
+        }
+    }
+
+    post {
+            always {
+                //some jenkins shared lib to send a notification about the jenkins build job status
+            }
+        }
+}
