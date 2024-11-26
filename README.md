@@ -147,7 +147,7 @@ This script provides a command-line interface to interact with the Customer Mana
 
 ---
 
-## **Prerequisites**
+### **Prerequisites**
 
 - **Customer API**: Running at `http://localhost:8080`.
 - **Tools**:
@@ -156,7 +156,7 @@ This script provides a command-line interface to interact with the Customer Mana
 
 ---
 
-## **Setup**
+### **Setup**
 
 1. **Save the Script**: Name it `consume_api.sh`.
 2. **Make Executable**:
@@ -166,7 +166,7 @@ This script provides a command-line interface to interact with the Customer Mana
 
 ---
 
-## **Usage**
+### **Usage**
 
 1. Run the script:
    ```bash
@@ -184,7 +184,7 @@ This script provides a command-line interface to interact with the Customer Mana
 
 ---
 
-## **API Operations**
+### **API Operations**
 
 | **Action**            | **HTTP Method** | **Endpoint**                      |
 |------------------------|-----------------|------------------------------------|
@@ -196,9 +196,9 @@ This script provides a command-line interface to interact with the Customer Mana
 
 ---
 
-## **Example**
+### **Example**
 
-### Create a Customer:
+#### Create a Customer:
 ```bash
 Enter First Name: John
 Enter Last Name: Doe
@@ -214,5 +214,18 @@ Creating customer...
   "phoneNumber": "1234567890"
 }
 ```
+### Importing and Using a Postman Collection
 
+#### **Importing a Collection in Postman**
+1. Open Postman and click on the **"Import"** button at the top-left corner.
+2. Choose [this](postman/customer-api-service.postman_collection.json) postman collection file from your local system and click **"Open"**.
+3. The imported collection will appear under the **Collections** tab. Expand it to view all API requests.
+
+---
+
+#### **Using the Collection for Testing**
+1. Select a request from the imported collection.
+2. Update any required parameters or variables (e.g., `base_url` or `id`).
+3. Click **"Send"** to execute the request.
+4. View the response in the Postman interface to verify API functionality.
 ---
