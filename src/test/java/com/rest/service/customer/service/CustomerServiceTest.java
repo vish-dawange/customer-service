@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class CustomerServiceTest {
@@ -48,6 +49,26 @@ public class CustomerServiceTest {
         assertEquals(2, customers.size());
         assertEquals(customers.get(0).getFirstName(), (customer1.getFirstName()));
         verify(customerRepository, times(1)).findAll();
+    }
+
+    /**
+     * Unit test case to verify createCustomer
+     */
+    @Test
+    void testCreateCustomer() {
+        Customer customer = new Customer();
+        customer.setId(UUID.randomUUID());
+        customer.setFirstName("John");
+
+        when(customerRepository.save(customer)).thenReturn(customer);
+
+        //test case method call
+        Customer result = customerService.createCustomer(customer);
+
+        // Assertions
+        assertNotNull(result);
+        assertEquals("John", result.getFirstName());
+        verify(customerRepository, times(1)).save(customer);
     }
 
 }
