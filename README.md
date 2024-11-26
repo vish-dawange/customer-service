@@ -89,7 +89,7 @@ The API will be accessible at `http://localhost:8080`.
 
 ---
 
-## **Running Integration and Unit Tests**
+## **Running Unit Tests**
 
 ### **1. Run All Tests**
 Use Maven to run the tests:
@@ -138,7 +138,81 @@ For more details, refer to the `devops/build` and `devops/deploy` pipeline file.
 ---
 
 ## **Deploying to Kubernetes**
-TO DO
+- TO DO
+---
+
+## **Customer API Client - Shell Script**
+
+This script provides a command-line interface to interact with the Customer Management API for CRUD operations.
 
 ---
+
+## **Prerequisites**
+
+- **Customer API**: Running at `http://localhost:8080`.
+- **Tools**:
+  - `curl`: HTTP client
+  - `jq` (optional): For JSON formatting
+
+---
+
+## **Setup**
+
+1. **Save the Script**: Name it `consume_api.sh`.
+2. **Make Executable**:
+   ```bash
+   chmod +x consume_api.sh
+   ```
+
+---
+
+## **Usage**
+
+1. Run the script:
+   ```bash
+   ./consume_api.sh
+   ```
+2. Follow the menu options:
+   ```
+   1. List All Customers
+   2. Get Customer by ID
+   3. Create Customer
+   4. Update Customer
+   5. Delete Customer
+   6. Exit
+   ```
+
+---
+
+## **API Operations**
+
+| **Action**            | **HTTP Method** | **Endpoint**                      |
+|------------------------|-----------------|------------------------------------|
+| List All Customers     | GET             | `/api/customers`                  |
+| Get Customer by ID     | GET             | `/api/customers/{id}`             |
+| Create New Customer    | POST            | `/api/customers`                  |
+| Update Existing Customer | PUT           | `/api/customers/{id}`             |
+| Delete Customer        | DELETE          | `/api/customers/{id}`             |
+
+---
+
+## **Example**
+
+### Create a Customer:
+```bash
+Enter First Name: John
+Enter Last Name: Doe
+Enter Email: john.doe@example.com
+Enter Phone Number: 1234567890
+
+Creating customer...
+{
+  "firstName": "John",
+  "middleName": "Bob",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phoneNumber": "1234567890"
+}
+```
+
 ---
