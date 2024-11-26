@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'branch', defaultValue: 'develop', description: 'Branch Name')
+        string(name: 'version',defaultValue: 'latest',description: 'Docker image tag to be deployed')
+    }
+
+    stages {
+
+        stage('Deploy Build') {
+            steps {
+            // deployment using k8s / aws ecs cloud formation template
+            // jenkins shared library can be created and used
+            }
+        }
+    }
+
+    post {
+        always {
+            //some jenkins shared lib to send a notification about the jenkins deploy job status
+        }
+    }
+}
