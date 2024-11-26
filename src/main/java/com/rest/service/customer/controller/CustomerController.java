@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * RestController for customer CRUD APIs
+ */
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
@@ -22,7 +26,9 @@ public class CustomerController {
 
     @GetMapping()
     public List<Customer> getAllCustomers() {
+        logger.info("getAllCustomers -> retrieving all customers from system");
         List<Customer> customers = customerService.getAllCustomers();
+        logger.info("getAllCustomers -> retrieved information of {} customers ", customers.size());
         return customers;
     }
 
@@ -31,11 +37,19 @@ public class CustomerController {
         logger.info("createCustomer -> POST /customers endpoint invoked");
         try {
             Customer newCustomer = customerService.createCustomer(customer);
-            logger.info("createCustomer -> Customer created successfully with id {}", newCustomer.getId());
+            logger.info("createCustomer -> Customer created successfully with id {}, returning response", newCustomer.getId());
             return ResponseEntity.status(201).body(newCustomer);
         } catch (Exception e) {
             logger.error("createCustomer -> Error while creating customer: ", e);
             throw e;
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable UUID id) {
+        logger.info("deleteCustomer -> DELETE /customers/{id} endpoint invoked for {}", id);
+        customerService.deleteCustomer(id);
+        logger.info("deleteCustomer -> customer {} deleted successfully, returning response", id);
+        return ResponseEntity.noContent().build();
     }
 }

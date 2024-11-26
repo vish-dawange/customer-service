@@ -10,7 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * Service to perform CURD on customer entity using repository
+ */
 @Service
 public class CustomerService {
 
@@ -33,5 +37,13 @@ public class CustomerService {
         Customer newCustomer = customerRepository.save(customer);
         logger.info("createCustomer -> Customer created with id: {}", newCustomer.getId());
         return newCustomer;
+    }
+
+    @Transactional
+    public void deleteCustomer(UUID id) {
+        logger.info("deleteCustomer -> deleting customer by id: {}", id);
+        customerRepository.deleteById(id);
+        logger.info("deleteCustomer -> customer {} deleted successfully", id);
+
     }
 }
