@@ -113,24 +113,32 @@ The API includes Spring Boot Actuator for monitoring and observability.
 | `/actuator/info`   | Provides application metadata |
 | `/actuator/metrics` | Displays application metrics |
 
+
+
+## **CI/CD Pipeline**
+
+---
+
+### **Pipeline Design**
+- **Steps for build job**:
+    1. Code checkout.
+    2. Build the project with Maven.
+    3. Run unit tests.
+    4. Static code analysis using Sonar qube, Snyk vulnerability analysis
+    5. Build and push Docker image to a container registry.
+- **Steps for deploy job**:
+  1. Code checkout.
+  2. Update cloud formation template for AWS ECS.
+  
+- **Parameters**: Build: branch name, version; Deploy: branch name, version and env name e.g dev, uat etc
+- **Tools**: Jenkins, GitHub/Bitbucket, or similar CI/CD systems.
+
+For more details, refer to the `devops/build` and `devops/deploy` pipeline file.
+
 ---
 
 ## **Deploying to Kubernetes**
 TO DO
 
 ---
-
-## **CI/CD Pipeline**
-
-### **Pipeline Design**
-- **Steps**:
-    1. Code checkout.
-    2. Build the project with Maven.
-    3. Run unit tests.
-    4. Static code analysis using Sonar qube, Snyk vulnerability analysis
-    5. Build and push Docker image to a container registry.
-- **Tools**: Jenkins, GitHub/Bitbucket, or similar CI/CD systems.
-
-For more details, refer to the `devops/build` and `devops/deploy` pipeline file.
-
 ---
