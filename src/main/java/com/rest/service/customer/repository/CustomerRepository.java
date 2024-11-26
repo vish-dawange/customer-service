@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * Customer repository interface to communicate with database
+ */
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
