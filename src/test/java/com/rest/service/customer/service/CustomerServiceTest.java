@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,6 +70,65 @@ public class CustomerServiceTest {
         assertNotNull(result);
         assertEquals("John", result.getFirstName());
         verify(customerRepository, times(1)).save(customer);
+    }
+
+    /**
+     * Unit test case to verify deleteCustomer
+     */
+    @Test
+    void testDeleteCustomer() {
+        UUID id = UUID.randomUUID();
+
+        // Call the method
+        customerService.deleteCustomer(id);
+
+        // Verify
+        verify(customerRepository, times(1)).deleteById(id);
+    }
+
+    /**
+     * Unit test case to verify updateCustomer
+     */
+    @Test
+    void testUpdateCustomer() {
+        UUID id = UUID.randomUUID();
+        Customer existingCustomer = new Customer();
+        existingCustomer.setId(id);
+        existingCustomer.setFirstName("John");
+
+        Customer updatedCustomer = new Customer();
+        updatedCustomer.setFirstName("Jane");
+
+        when(customerRepository.findById(id)).thenReturn(Optional.of(existingCustomer));
+        when(customerRepository.save(existingCustomer)).thenReturn(existingCustomer);
+
+        // Call the method
+        Customer result = customerService.updateCustomer(id, updatedCustomer);
+
+        // Assertions
+        assertNotNull(result);
+        assertEquals("Jane", result.getFirstName());
+        verify(customerRepository, times(1)).save(existingCustomer);
+    }
+
+    /**
+     * Unit test case to verify getCustomerById
+     */
+    @Test
+    void testGetCustomerById() {
+        UUID id = UUID.randomUUID();
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setFirstName("John");
+
+        when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
+        //test case method call
+        Optional<Customer> result = customerService.getCustomerById(id);
+
+        // Assertions
+        assertNotNull(result);
+        assertEquals("John", result.get().getFirstName());
+        verify(customerRepository, times(1)).findById(id);
     }
 
 }
